@@ -1,0 +1,98 @@
+#!/bin/bash
+
+# Adapted from Zortax' example https://github.com/Zortax/dotfiles/blob/master/install.sh
+# By: Jacob Bechmann Pedersen
+# Date: 2019-01-29
+# License: MIT (See LICENSE)
+
+USER=$(whoami)
+INSTALL_PATH=$(pwd)
+USER_PATH=/home/$USER
+
+if [[ $USER == "root" ]]; then
+    USER_PATH=/root
+fi
+
+# Function to pick the submodules:
+
+ask() {
+    while true; do
+        if [ "${2:-}" = "Y" ]; then
+            prompt="Y/n"
+            defult=Y
+        elif [ "${2:-}" = "N" ]; then
+            prompt="y/N"
+            default=N
+        else
+            prompt="y/n"
+            default=
+        fi
+        read -p "$1 [$prompt] " REPLY </dev/tty
+        if [ -z "$REPLY" ]; then
+            REPLY=$defult
+        fi
+        case "$REPLY" in
+            Y*|y*) return 0 ;;
+            N*|n*) return 1 ;;
+        esac
+    done
+}
+
+# Install the configs:
+
+# i3
+
+if ask "Install i3 configuration?" Y; then
+    if [ -d $USER_PATH/.config/i3/ ]; then
+        if [ -f "$USER_PATH/.config/i3/config" ]; then
+            echo "Backing up old i3 config..."
+            mv $USER_PATH/.config/i3/config $USER_PATH/.config/i3/config.bak
+        fi
+    else
+        mkdir $USER_PATH/.config/i3
+    fi
+
+    echo "Installing i3 config..."
+    ln -s $INSTALL_PATH/i3/config $USER_PATH/.config/i3/config
+fi
+
+# i3status
+
+if ask "Install i3status configuration?" Y; then
+    if [ -d "$USER_PATH/.config/i3status/" ]; then
+        if [ -f "$USER_PATH/.config/i3status/config" ]; then
+            echo "Backing up old i3status config..."
+            mv $USER_PATH/.config/i3status/config $USER_PATH/.config/i3status/config.bak
+        fi
+    else
+        mkdir $USER_PATH/.config/i3status
+    fi
+
+    echo "Installing i3status config..."
+    ln -s $INSTALL_PATH/i3/i3status $USER_PATH/.config/i3status/config
+fi
+
+# compton
+
+if ask "Install compton configuration?" Y; then
+    if [ -f "$USER_PATH/.config/compton.conf" ]; then
+        echo "Backing up old compton.conf...";
+        mv $USER_PATH/.config/compton.conf $USER_PATH/.config/compton.conf.bak
+    fi
+
+    echo "Installing compton.conf..."
+    ln -s $INSTALL_PATH/compton/compton.conf $USER_PATH/.config/compton.conf
+fi
+
+# URxvt
+
+if ask "Install urxvt config?" Y; then
+    if [ -f "$USER_PATH/.Xresources" ]; then
+        echo "Backing up old urxvt config..."
+        mv $USER_PATH/.Xresources $USER_PATH/.Xresources.bak
+    fi
+    echo "Installing urxvt config..."
+    ln -s $INSTALL_PATH/urxvt/.Xresources $USER_PATH/.Xresources
+fi
+
+echo "End of install!"
