@@ -69,7 +69,7 @@ if ask "Install i3status configuration?" Y; then
     fi
 
     echo "Installing i3status config..."
-    ln -s $INSTALL_PATH/i3/i3status $USER_PATH/.config/i3status/config
+    ln -s $INSTALL_PATH/i3status/config $USER_PATH/.config/i3status/config
 fi
 
 # compton
