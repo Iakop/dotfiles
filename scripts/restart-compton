@@ -1,0 +1,4 @@
+#!/bin/bash
+
+kill $(pgrep compton)
+compton --config ~/.config/compton.conf --blur-method kawase --blur-strength 9 -b

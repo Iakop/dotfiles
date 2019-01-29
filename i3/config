@@ -1,0 +1,239 @@
+# i3 config
+# By: Jacob Bechmann Pedersen
+# Date: 2019-01-24
+
+# Set colors from Xresources
+set_from_resource $fg i3wm.color7 #f0f0f0
+set_from_resource $bg i3wm.color2 #f0f0f0
+set_from_resource $dk i3wm.color0 #ffffff
+set_from_resource $mg i3wm.color6 #ffffff
+
+# class                 border  backgr. text indicator child_border
+client.focused          $mg     $bg     $fg  $mg       $mg
+client.focused_inactive $bg     $bg     $fg  $dk       $dk
+client.unfocused        $bg     $bg     $fg  $dk       $dk
+client.urgent           $bg     $bg     $fg  $dk       $bg
+client.placeholder      $bg     $bg     $fg  $dk       $bg
+
+client.background       $bg
+
+# Set the mod button for i3:
+set $mod Mod4
+
+# i3 and i3bar use Inconsolata Bold size 10:
+font pango:DejaVu Sans Mono 10
+
+# Fallback font:
+# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+
+# Enable gaps and set them:
+gaps outer 16
+gaps inner 32
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Use smart popup handling in fullscreen:
+popup_during_fullscreen smart
+
+# Make border 3 pixels wide:
+for_window [class="^.*"] border pixel 2
+
+# Start terminal:
+bindsym $mod+Return exec i3-sensible-terminal
+
+# Kill focused window:
+bindsym $mod+Shift+q kill
+
+# Start dmenu with the wal colors: 
+bindsym $mod+d exec dmenu_run -nb "$dk" -nf "$fg" -sb "$bg" -sf "$fg"
+
+# Change focus:
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+# Change focus arrow keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move focused window:
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+# Arrow keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Split horizontal:
+bindsym $mod+h split h
+# Split vertical:
+bindsym $mod+v split v
+
+# Fullscreen mode for the focused container:
+bindsym $mod+f fullscreen toggle
+
+# Change container layout:
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Toggle tiling / floating:
+bindsym $mod+Shift+space floating toggle
+
+# Change focus between tiling / floating:
+bindsym $mod+space focus mode_toggle
+
+# Focus parent container:
+bindsym $mod+a focus parent
+
+# Workspace variables:
+# Terminals
+set $ws1 "1: "
+assign [class="URxvt"] $ws1 
+# Files
+set $ws2 "2: " 
+assign [class="Thunar"] $ws2
+# Browser
+set $ws3 "3: " 
+assign [class="Firefox"] $ws3 
+# Writing
+set $ws4 "4: "
+assign [class="Texmaker"] $ws4
+# Gaming
+set $ws5 "5: " 
+assign [class="Steam"] $ws5 
+assign [class="Lutris"] $ws5
+# Mail
+set $ws6 "6: "
+assign [class="Thunderbird"] $ws6
+# Drawing
+set $ws7 "7: " 
+assign [class="krita"] $ws7
+assign [class="Gimp"] $ws7
+assign [class="Dia"] $ws7
+# Social
+set $ws8 "8: " 
+assign [title="Friends List"] $ws8
+assign [class="discord"] $ws8
+assign [class="Surf"] $ws8 
+# Electronics
+set $ws9 "9: " 
+assign [class="Kicad"] $ws9
+assign [class="waveforms"] $ws9
+# Music/Spotify
+set $ws10 "10: " 
+for_window [class="Spotify"] move to workspace $ws10 
+
+for_window [class="Arandr"] floating enable 
+for_window [class="Lxappearance"] floating enable 
+for_window [class="Pavucontrol"] floating enable
+
+# Switch to workspace:
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# Move focused container to workspace:
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# Control the audio:
+bindsym $mod+KP_Insert exec pamixer -t
+bindsym $mod+KP_Subtract exec pamixer -d 5
+bindsym $mod+KP_Add exec pamixer -i 5
+bindsym $mod+KP_Down exec playerctl stop
+bindsym $mod+KP_Left exec playerctl previous
+bindsym $mod+KP_Begin exec playerctl play-pause
+bindsym $mod+KP_Right exec playerctl next
+
+# Lock the screen by pressing mod+shift+x:
+bindsym $mod+shift+x exec i3lock
+
+# Execute Ranger by pressing mod+b:
+#bindsym $mod+b exec urxvt -e ranger 
+bindsym $mod+b exec thunar 
+
+# Move workspaces left and right using mod+m+arrow keys:
+bindsym $mod+Control+Left move workspace to output left
+bindsym $mod+Control+Right move workspace to output right
+bindsym $mod+Control+Up move workspace to output up
+bindsym $mod+Control+Down move workspace to output down
+
+# Take screenshot (Not working):
+bindsym --release $mod+Shift+s exec --no-startup-id maim -u -s | tee ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png | xclip -selection clipboard -t image/png
+
+# Open the clipmenu:
+bindsym $mod+c exec clipmenu
+
+# Start i3bar:
+bar {
+	i3bar_command 		i3bar -t
+	status_command 		i3status
+	position		top
+	workspace_buttons	yes
+	tray_output		primary
+	separator_symbol " "
+	colors {
+        	background $dk
+        	statusline $fg
+		focused_workspace $bg $bg $fg
+		active_workspace $bg $bg $fg
+		inactive_workspace $dk $dk $bg
+    	}
+}
+
+# Exec at startup:
+exec --no-startup-id cbatticon --low-level 10 --critical-level 5
+exec --no-startup-id pasystray
+exec --no-startup-id nm-applet
+exec --no-startup-id dropbox
+exec --no-startup-id compton --config ~/.config/compton.conf --blur-method kawase --blur-strength 9 -b
+exec --no-startup-id clipmenud
+exec_always --no-startup-id wal -R

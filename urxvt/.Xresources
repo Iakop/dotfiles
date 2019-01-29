@@ -1,0 +1,19 @@
+!Xresources config
+!By: Jacob Bechmann Pedersen
+!Date: 2019-01-24
+
+! Makes the cursor an acceptable size:
+Xcursor.size: 16
+
+!URxvt settings:
+! Sets the font for URxvt:
+
+!URxvt.letterSpace: -2
+URxvt.font: xft:DejaVu Sans Mono:style=Book:size=10
+
+! Set the copy/paste keyboard input ctrl+shift+c and ctrl+shift+v, respectively:
+URxvt.keysym.Shift-Control-c eval: selection_to_clipboard
+URxvt.keysym.Shift-Control-v eval: paste_clipboard
+
+! Remove scrollbar from window
+URxvt.scrollBar: false
