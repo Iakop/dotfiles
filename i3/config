@@ -131,6 +131,7 @@ for_window [class="Spotify"] move to workspace $ws10
 for_window [class="Arandr"] floating enable 
 for_window [class="Lxappearance"] floating enable 
 for_window [class="Pavucontrol"] floating enable
+for_window [class="VirtualBox Manager"] floating enable
 
 # Switch to workspace:
 bindsym $mod+1 workspace $ws1
@@ -237,6 +238,7 @@ exec --no-startup-id cbatticon --low-level 10 --critical-level 5
 exec --no-startup-id pasystray
 exec --no-startup-id nm-applet
 exec --no-startup-id caffeine
+exec --no-startup-id nextcloud
 exec --no-startup-id compton --config ~/.config/compton.conf --blur-method kawase --blur-strength 9 -b
 exec --no-startup-id clipmenud
 exec_always --no-startup-id wal -R
