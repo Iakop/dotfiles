@@ -120,6 +120,7 @@ assign [class="Dia"] $ws7
 set $ws8 "8: " 
 assign [title="Friends List"] $ws8
 assign [class="discord"] $ws8
+assign [class="Slack"] $ws8
 # Electronics
 set $ws9 "9: " 
 assign [class="Kicad"] $ws9
@@ -209,7 +210,7 @@ bindsym $mod+Control+Right move workspace to output right
 bindsym $mod+Control+Up move workspace to output up
 bindsym $mod+Control+Down move workspace to output down
 
-# Take screenshot (Not working):
+# Take screenshot:
 bindsym --release $mod+Shift+s exec --no-startup-id maim -u -s | tee ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png | xclip -selection clipboard -t image/png
 
 # Open the clipmenu:
@@ -233,12 +234,13 @@ bar {
 }
 
 # Exec at startup:
+exec_always --no-startup-id wal -R
+exec --no-startup-id clipmenud
+exec --no-startup-id compton --config ~/.config/compton.conf --blur-method kawase --blur-strength 9 -b
 exec --no-startup-id redshift-gtk
 exec --no-startup-id cbatticon --low-level 10 --critical-level 5
 exec --no-startup-id pasystray
 exec --no-startup-id nm-applet
 exec --no-startup-id caffeine
 exec --no-startup-id nextcloud
-exec --no-startup-id compton --config ~/.config/compton.conf --blur-method kawase --blur-strength 9 -b
-exec --no-startup-id clipmenud
-exec_always --no-startup-id wal -R
+exec --no-startup-id slack -u
