@@ -21,7 +21,7 @@ client.background       $bg
 set $mod Mod4
 
 # i3 and i3bar use Inconsolata Bold size 10:
-font pango:DejaVu Sans Mono 10
+font pango:SF-Pro-Display Regular 10
 
 # Fallback font:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1

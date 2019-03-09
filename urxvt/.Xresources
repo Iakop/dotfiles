@@ -9,7 +9,7 @@ Xcursor.size: 16
 ! Sets the font for URxvt:
 
 !URxvt.letterSpace: -2
-URxvt.font: xft:DejaVu Sans Mono:style=Book:size=10
+URxvt.font: xft:Monaco:size=10
 
 ! Set the copy/paste keyboard input ctrl+shift+c and ctrl+shift+v, respectively:
 URxvt.keysym.Shift-Control-c eval: selection_to_clipboard
