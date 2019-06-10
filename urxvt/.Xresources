@@ -2,18 +2,36 @@
 !By: Jacob Bechmann Pedersen
 !Date: 2019-01-24
 
-! Makes the cursor an acceptable size:
-Xcursor.size: 16
+! Makes the  X-cursor an acceptable size:
+Xcursor.size: 24
 
-!URxvt settings:
-! Sets the font for URxvt:
-
-!URxvt.letterSpace: -2
+! Font settings
 URxvt.font: xft:Monaco:size=11
 
-! Set the copy/paste keyboard input ctrl+shift+c and ctrl+shift+v, respectively:
-URxvt.keysym.Shift-Control-c eval: selection_to_clipboard
-URxvt.keysym.Shift-Control-v eval: paste_clipboard
+! Disable ISO14755 mode
+URxvt.iso14755: false
 
 ! Remove scrollbar from window
 URxvt.scrollBar: false
+
+! Common keybinds for navigation
+URxvt.keysym.Shift-Up: command:\033]720;1\007
+URxvt.keysym.Shift-Down: command:\033]721;1\007
+URxvt.keysym.Control-Up: \033[1;5A
+URxvt.keysym.Control-Down: \033[1;5B
+URxvt.keysym.Control-Right: \033[1;5C
+URxvt.keysym.Control-Left: \033[1;5D
+
+! Copy paste & other extensions
+URxvt.perl-ext-common: default,clipboard,url-select,keyboard-select
+URxvt.copyCommand: xclip -i -selection clipboard
+URxvt.pasteCommand: xclip -o -selection clipboard
+URxvt.keysym.C-C: perl:clipboard:copy
+URxvt.keysym.C-V: perl:clipboard:paste
+URxvt.keysym.M-V: perl:clipboard:paste_escaped
+URxvt.keysym.C-Escape: perl:keyboard-select:activate
+URxvt.keysym.C-F: perl:keyboard-select:search
+URxvt.keysym.C-N: perl:url-select:select_next
+URxvt.urlLauncher: firefox
+URxvt.underlineURLs: true
+URxvt.urlButton: 1
