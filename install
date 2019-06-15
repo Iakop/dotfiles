@@ -95,4 +95,15 @@ if ask "Install urxvt config?" Y; then
     ln -s $INSTALL_PATH/urxvt/.Xresources $USER_PATH/.Xresources
 fi
 
+# Bash
+
+if ask "Install bash config?" Y; then
+    if [ -f "$USER_PATH/.bashrc" ]; then
+        echo "Backing up old bash config..."
+        mv $USER_PATH/.bashrc $USER_PATH/.bashrc.bak
+    fi
+    echo "Installing urxvt config..."
+    ln -s $INSTALL_PATH/bash/.bashrc $USER_PATH/.bashrc
+fi
+
 echo "End of install!"
