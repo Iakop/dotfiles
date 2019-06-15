@@ -3,10 +3,10 @@
 !Date: 2019-01-24
 
 ! Makes the  X-cursor an acceptable size:
-Xcursor.size: 24
+Xcursor.size: 16
 
 ! Font settings
-URxvt.font: xft:Monaco:size=11
+URxvt.font: xft:Monaco:size=10
 
 ! Disable ISO14755 mode
 URxvt.iso14755: false
