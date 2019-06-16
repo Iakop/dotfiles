@@ -9,6 +9,11 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+# If a .profile exists, source it
+if [ -f $HOME/.profile ]; then
+	source $HOME/.profile
+fi
+
 # Give colors to ls
 alias ls='ls --color=auto'
 
