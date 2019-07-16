@@ -21,14 +21,15 @@ client.background       $bg
 set $mod Mod4
 
 # i3 and i3bar use Inconsolata Bold size 10:
-font pango:SF-Pro-Display Light 11
+#font pango:SF-Pro-Display Light 11
+font pango:Gohu GohuFont Regular 9
 
 # Fallback font:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 
 # Enable gaps and set them:
 gaps outer 16
-gaps inner 32
+gaps inner 16
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -49,10 +50,10 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec dmenu_run -nb "$dk" -nf "$fg" -sb "$bg" -sf "$fg"
 
 # Change focus:
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 # Change focus arrow keys:
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
@@ -60,10 +61,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # Move focused window:
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 # Arrow keys:
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
@@ -71,9 +72,9 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # Split horizontal:
-bindsym $mod+h split h
+bindsym $mod+Comma split h
 # Split vertical:
-bindsym $mod+v split v
+bindsym $mod+Period split v
 
 # Fullscreen mode for the focused container:
 bindsym $mod+f fullscreen toggle
@@ -236,7 +237,7 @@ bar {
 # Exec at startup:
 exec_always --no-startup-id wal -R
 exec --no-startup-id clipmenud
-exec --no-startup-id compton --config ${HOME}/.config/compton.conf --blur-method kawase --blur-strength 9 -b
+exec --no-startup-id compton --config ${HOME}/.config/compton.conf -b #--blur-method kawase --blur-strength 9 -b
 exec --no-startup-id redshift-gtk
 exec --no-startup-id cbatticon --low-level 10 --critical-level 5
 exec --no-startup-id pasystray

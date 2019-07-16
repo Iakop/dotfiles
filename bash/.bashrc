@@ -16,6 +16,8 @@ fi
 
 # Give colors to ls
 alias ls='ls --color=auto'
+# Make feh autozoom, scaledown and browse images in directory
+alias feh='feh -Z.|'
 
 # Give a custom prompt
 PS1='\[\033[01;33m\]\u\[\033[01;37m\]@\[\033[01;36m\]\h\[\033[01;33m\]:\[\033[01;37m\]\W\[\033[01;33m\]\$\[\033[00m\] '
