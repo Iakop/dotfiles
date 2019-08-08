@@ -6,8 +6,8 @@
 Xcursor.size: 16
 
 ! Font settings
-!URxvt.font: xft:Monaco:size=10
-URxvt.font: xft:Gohu Gohufont:style=Regular:size=9
+URxvt.font: xft:Monaco:size=10
+!URxvt.font: xft:Gohu Gohufont:style=Regular:size=9
 
 ! Disable ISO14755 mode
 URxvt.iso14755: false

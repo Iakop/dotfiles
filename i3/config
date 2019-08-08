@@ -21,8 +21,8 @@ client.background       $bg
 set $mod Mod4
 
 # i3 and i3bar use Inconsolata Bold size 10:
-#font pango:SF-Pro-Display Light 11
-font pango:Gohu GohuFont Regular 9
+font pango:SF-Pro-Display Light 11
+#font pango:Gohu GohuFont Regular 9
 
 # Fallback font:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -236,8 +236,9 @@ bar {
 
 # Exec at startup:
 exec_always --no-startup-id wal -R
+exec --no-startup-id /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
 exec --no-startup-id clipmenud
-exec --no-startup-id compton --config ${HOME}/.config/compton.conf -b #--blur-method kawase --blur-strength 9 -b
+exec --no-startup-id compton --config ${HOME}/.config/compton.conf --blur-method kawase --blur-strength 9 -b
 exec --no-startup-id redshift-gtk
 exec --no-startup-id cbatticon --low-level 10 --critical-level 5
 exec --no-startup-id pasystray
