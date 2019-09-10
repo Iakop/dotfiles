@@ -67,7 +67,7 @@ fi
 
 if ask "Install i3status configuration?" Y; then
 	if [ ! -d "$USER_PATH/.config/i3status/" ]; then
-		mkdir "$USER_PATH/.config/i3status/config"
+		mkdir "$USER_PATH/.config/i3status/"
 	fi
 	if [ -f "$USER_PATH/.config/i3status/config" ]; then
 		diff "$USER_PATH/.config/i3status/config" "$INSTALL_PATH/i3status/config" >/dev/null 2>&1
@@ -163,6 +163,49 @@ if ask "Install bash configuration?" Y; then
 	else
 		echo "Installing bashrc config..."
 		cp "$INSTALL_PATH/bash/bashrc" "$USER_PATH/.bashrc"
+	fi
+fi
+
+# vnc
+
+if ask "Install vnc configuration?" Y; then
+	if [ ! -d "$USER_PATH/.vnc/" ]; then
+		mkdir "$USER_PATH/.vnc/"
+	fi
+	if [ -f "$USER_PATH/.vnc/xstartup" ]; then
+		diff "$USER_PATH/.vnc/xstartup" "$INSTALL_PATH/vnc/xstartup" >/dev/null 2>&1
+		retval=$?
+		if [ $retval -eq 0 ]; then
+			echo "xstartup config already installed!"
+		else
+			echo "Backing up old xstartup config..."
+			mv "$USER_PATH/.vnc/xstartup" "$USER_PATH/.vnc/xstartup.bak"
+			echo "Installing xstartup config..."
+			cp "$INSTALL_PATH/vnc/xstartup" "$USER_PATH/.vnc/xstartup"
+		fi
+	else
+		echo "Installing xstartup config..."
+		cp "$INSTALL_PATH/vnc/xstartup" "$USER_PATH/.vnc/xstartup"
+	fi
+fi
+
+# redshift
+
+if ask "Install redshift configuration?" Y; then
+	if [ -f "$USER_PATH/.config/redshift.conf" ]; then
+		diff "$USER_PATH/.config/redshift.conf" "$INSTALL_PATH/redshift/redshift.conf" >/dev/null 2>&1
+		retval=$?
+		if [ $retval -eq 0 ]; then
+			echo "redshift configuration already installed!"
+		else
+			echo "Backing up old redshift config..."
+			mv "$USER_PATH/.config/redshift.conf" "$USER_PATH/.config/redshift.conf.bak"
+			echo "Installing redshift config..."
+			cp "$INSTALL_PATH/redshift/redshift.conf" "$USER_PATH/.config/redshift.conf"
+		fi
+	else
+		echo "Installing redshift config..."
+		cp "$INSTALL_PATH/redshift/redshift.conf" "$USER_PATH/.config/redshift.conf"
 	fi
 fi
 

@@ -1,0 +1,31 @@
+#!/bin/sh
+# Author: Jacob Bechmann Pedersen
+# Date: 2019-08-08
+# xstartup for vncserver
+
+export wm="i3"
+case "$wm" in
+	xfce)
+		unset SESSION_MANAGER
+		unset DBUS_SESSION_BUS_ADDRESS
+		[ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup
+		[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
+		[ -r $HOME/.profile ] && source $HOME/.profile
+		#xsetroot -solid grey
+		#vncconfig -iconic &
+		#x-terminal-emulator -geometry 80x24+10+10 -title "$VNCDESKTOP Desktop" &
+		exec dbus-launch startxfce4
+		;;
+	i3)
+		unset SESSION_MANAGER
+		unset DBUS_SESSION_BUS_ADDRESS
+		[ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup
+		[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
+		[ -r $HOME/.profile ] && source $HOME/.profile
+		[ -x $HOME/.xinitrc ] && exec $HOME/.xinitrc
+		#xsetroot -solid grey
+		#vncconfig -iconic &
+		#x-terminal-emulator -geometry 80x24+10+10 -title "$VNCDESKTOP Desktop" &
+		exec dbus-launch i3 
+		;;
+esac
