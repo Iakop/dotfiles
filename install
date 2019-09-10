@@ -43,8 +43,8 @@ ask() {
 # i3
 
 if ask "Install i3 configuration?" Y; then
-	if [ ! "-d $USER_PATH/.config/i3/" ]; then
-		mkdir "$USER_PATH/.config/i3"
+	if [ ! -d "$USER_PATH/.config/i3/" ]; then
+		mkdir "$USER_PATH/.config/i3/"
 	fi
 	if [ -f "$USER_PATH/.config/i3/config" ]; then
 		diff "$USER_PATH/.config/i3/config" "$INSTALL_PATH/i3/config" >/dev/null 2>&1
