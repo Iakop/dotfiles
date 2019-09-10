@@ -15,7 +15,7 @@ if [ -f $HOME/.profile ]; then
 fi
 
 # Give colors to ls
-alias ls='ls --color=auto'
+alias ls='ls -w1 -l --color=auto'
 # Make feh autozoom, scaledown and browse images in directory
 alias feh='feh -Z.|'
 
