@@ -10,32 +10,32 @@ INSTALL_PATH=$(pwd)
 USER_PATH=/home/$USER
 
 if [[ $USER == "root" ]]; then
-    USER_PATH=/root
+	USER_PATH=/root
 fi
 
 # Function to pick the submodules:
 
 ask() {
-    while true; do
-        if [ "${2:-}" = "Y" ]; then
-            prompt="Y/n"
-            defult=Y
-        elif [ "${2:-}" = "N" ]; then
-            prompt="y/N"
-            default=N
-        else
-            prompt="y/n"
-            default=
-        fi
-        read -p "$1 [$prompt] " REPLY </dev/tty
-        if [ -z "$REPLY" ]; then
-            REPLY=$defult
-        fi
-        case "$REPLY" in
-            Y*|y*) return 0 ;;
-            N*|n*) return 1 ;;
-        esac
-    done
+	while true; do
+		if [ "${2:-}" = "Y" ]; then
+			prompt="Y/n"
+			default=Y
+		elif [ "${2:-}" = "N" ]; then
+			prompt="y/N"
+			default=N
+		else
+			prompt="y/n"
+			default=
+		fi
+		read -p "$1 [$prompt] " REPLY </dev/tty
+		if [ -z "$REPLY" ]; then
+			REPLY=$default
+		fi
+		case "$REPLY" in
+			Y*|y*) return 0 ;;
+			N*|n*) return 1 ;;
+		esac
+	done
 }
 
 # Install the configs:
@@ -43,8 +43,8 @@ ask() {
 # i3
 
 if ask "Install i3 configuration?" Y; then
-	if [ ! -d $USER_PATH/.config/i3/ ]; then
-		mkdir $USER_PATH/.config/i3
+	if [ ! "-d $USER_PATH/.config/i3/" ]; then
+		mkdir "$USER_PATH/.config/i3"
 	fi
 	if [ -f "$USER_PATH/.config/i3/config" ]; then
 		diff "$USER_PATH/.config/i3/config" "$INSTALL_PATH/i3/config" >/dev/null 2>&1
@@ -53,61 +53,117 @@ if ask "Install i3 configuration?" Y; then
 			echo "i3 config already installed!"
 		else
 			echo "Backing up old i3 config..."
-			mv $USER_PATH/.config/i3/config $USER_PATH/.config/i3/config.bak
+			mv "$USER_PATH/.config/i3/config" "$USER_PATH/.config/i3/config.bak"
 			echo "Installing i3 config..."
-			cp $INSTALL_PATH/i3/config $USER_PATH/.config/i3/config
+			cp "$INSTALL_PATH/i3/config" "$USER_PATH/.config/i3/config"
 		fi
+	else
+		echo "Installing i3 config..."
+		cp "$INSTALL_PATH/i3/config" "$USER_PATH/.config/i3/config"
 	fi
 fi
 
 # i3status
 
 if ask "Install i3status configuration?" Y; then
-    if [ -d "$USER_PATH/.config/i3status/" ]; then
-        if [ -f "$USER_PATH/.config/i3status/config" ]; then
-            echo "Backing up old i3status config..."
-            mv $USER_PATH/.config/i3status/config $USER_PATH/.config/i3status/config.bak
-        fi
-    else
-        mkdir $USER_PATH/.config/i3status
-    fi
-
-    echo "Installing i3status config..."
-    ln -s $INSTALL_PATH/i3status/config $USER_PATH/.config/i3status/config
+	if [ ! -d "$USER_PATH/.config/i3status/" ]; then
+		mkdir "$USER_PATH/.config/i3status/config"
+	fi
+	if [ -f "$USER_PATH/.config/i3status/config" ]; then
+		diff "$USER_PATH/.config/i3status/config" "$INSTALL_PATH/i3status/config" >/dev/null 2>&1
+		retval=$?
+		if [ $retval -eq 0 ]; then
+			echo "i3status config already installed!"
+		else
+			echo "Backing up old i3status config..."
+			mv "$USER_PATH/.config/i3status/config" "$USER_PATH/.config/i3status/config.bak"
+			echo "Installing i3status config..."
+			cp "$INSTALL_PATH/i3status/config" "$USER_PATH/.config/i3status/config"
+		fi
+	else
+		echo "Installing i3status config..."
+		cp "$INSTALL_PATH/i3status/config" "$USER_PATH/.config/i3status/config"
+	fi
 fi
 
 # compton
 
 if ask "Install compton configuration?" Y; then
-    if [ -f "$USER_PATH/.config/compton.conf" ]; then
-        echo "Backing up old compton.conf...";
-        mv $USER_PATH/.config/compton.conf $USER_PATH/.config/compton.conf.bak
-    fi
-
-    echo "Installing compton.conf..."
-    ln -s $INSTALL_PATH/compton/compton.conf $USER_PATH/.config/compton.conf
+	if [ -f "$USER_PATH/.config/compton.conf" ]; then
+		diff "$USER_PATH/.config/compton.conf" "$INSTALL_PATH/compton/compton.conf" >/dev/null 2>&1
+		retval=$?
+		if [ $retval -eq 0 ]; then
+			echo "compton config already installed!"
+		else
+			echo "Backing up old compton config..."
+			mv "$USER_PATH/.config/compton.conf" "$USER_PATH/.config/compton.conf.bak"
+			echo "Installing compton config..."
+			cp "$INSTALL_PATH/compton/compton.conf" "$USER_PATH/.config/compton.conf"
+		fi
+	else
+		echo "Installing compton config..."
+		cp "$INSTALL_PATH/compton/compton.conf" "$USER_PATH/.config/compton.conf"
+	fi
 fi
 
-# URxvt
+# xorg Xresources
 
-if ask "Install urxvt config?" Y; then
-    if [ -f "$USER_PATH/.Xresources" ]; then
-        echo "Backing up old urxvt config..."
-        mv $USER_PATH/.Xresources $USER_PATH/.Xresources.bak
-    fi
-    echo "Installing urxvt config..."
-    ln -s $INSTALL_PATH/urxvt/.Xresources $USER_PATH/.Xresources
+if ask "Install Xresources configuration?" Y; then
+	if [ -f "$USER_PATH/.Xresources" ]; then
+		diff "$USER_PATH/.Xresources" "$INSTALL_PATH/xorg/Xresources" >/dev/null 2>&1
+		retval=$?
+		if [ $retval -eq 0 ]; then
+			echo "Xresources configuration already installed!"
+		else
+			echo "Backing up old Xresources config..."
+			mv "$USER_PATH/.Xresources" "$USER_PATH/.Xresources.bak"
+			echo "Installing Xresources config..."
+			cp "$INSTALL_PATH/xorg/Xresources" "$USER_PATH/.Xresources"
+		fi
+	else
+		echo "Installing Xresources config..."
+		cp "$INSTALL_PATH/xorg/Xresources" "$USER_PATH/.Xresources"
+	fi
+fi
+
+# xorg xinitrc
+
+if ask "Install xinitrc configuration?" Y; then
+	if [ -f "$USER_PATH/.xinitrc" ]; then
+		diff "$USER_PATH/.xinitrc" "$INSTALL_PATH/xorg/xinitrc" >/dev/null 2>&1
+		retval=$?
+		if [ $retval -eq 0 ]; then
+			echo "xinitrc configuration already installed!"
+		else
+			echo "Backing up old xinitrc config..."
+			mv "$USER_PATH/.xinitrc" "$USER_PATH/.xinitrc.bak"
+			echo "Installing xinitrc config..."
+			cp "$INSTALL_PATH/xorg/xinitrc" "$USER_PATH/.xinitrc"
+		fi
+	else
+		echo "Installing xinitrc config..."
+		cp "$INSTALL_PATH/xorg/xinitrc" "$USER_PATH/.xinitrc"
+	fi
 fi
 
 # Bash
 
-if ask "Install bash config?" Y; then
-    if [ -f "$USER_PATH/.bashrc" ]; then
-        echo "Backing up old bash config..."
-        mv $USER_PATH/.bashrc $USER_PATH/.bashrc.bak
-    fi
-    echo "Installing urxvt config..."
-    ln -s $INSTALL_PATH/bash/.bashrc $USER_PATH/.bashrc
+if ask "Install bash configuration?" Y; then
+	if [ -f "$USER_PATH/.bashrc" ]; then
+		diff "$USER_PATH/.bashrc" "$INSTALL_PATH/bash/bashrc" >/dev/null 2>&1
+		retval=$?
+		if [ $retval -eq 0 ]; then
+			echo "bashrc configuration already installed!"
+		else
+			echo "Backing up old bashrc config..."
+			mv "$USER_PATH/.bashrc" "$USER_PATH/.bashrc.bak"
+			echo "Installing bashrc config..."
+			cp "$INSTALL_PATH/bash/bashrc" "$USER_PATH/.bashrc"
+		fi
+	else
+		echo "Installing bashrc config..."
+		cp "$INSTALL_PATH/bash/bashrc" "$USER_PATH/.bashrc"
+	fi
 fi
 
 echo "End of install!"
