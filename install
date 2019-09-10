@@ -209,4 +209,24 @@ if ask "Install redshift configuration?" Y; then
 	fi
 fi
 
+# qt 
+
+if ask "Install qt configuration?" Y; then
+	if [ -f "$USER_PATH/.config/Trolltech.conf" ]; then
+		diff "$USER_PATH/.config/Trolltech.conf" "$INSTALL_PATH/qt/Trolltech.conf" >/dev/null 2>&1
+		retval=$?
+		if [ $retval -eq 0 ]; then
+			echo "Trolltech configuration already installed!"
+		else
+			echo "Backing up old Trolltech config..."
+			mv "$USER_PATH/.config/Trolltech.conf" "$USER_PATH/.config/Trolltech.conf.bak"
+			echo "Installing Trolltech config..."
+			cp "$INSTALL_PATH/qt/Trolltech.conf" "$USER_PATH/.config/Trolltech.conf"
+		fi
+	else
+		echo "Installing Trolltech config..."
+		cp "$INSTALL_PATH/qt/Trolltech.conf" "$USER_PATH/.config/Trolltech.conf"
+	fi
+fi
+
 echo "End of install!"
