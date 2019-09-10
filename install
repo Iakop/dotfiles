@@ -43,21 +43,20 @@ ask() {
 # i3
 
 if ask "Install i3 configuration?" Y; then
-    if [ -d $USER_PATH/.config/i3/ ]; then
-    else
-        mkdir $USER_PATH/.config/i3
-    fi
-        if [ -f "$USER_PATH/.config/i3/config" ]; then
-	    diff "$USER_PATH/.config/i3/config" "$INSTALL_PATH/i3/config" >/dev/null 2>&1
-	    retval=$?
-	    if [ $retval -eq 0 ]; then
-		echo "i3 config already installed!"
-	    else
-                echo "Backing up old i3 config..."
-                mv $USER_PATH/.config/i3/config $USER_PATH/.config/i3/config.bak
-    	        echo "Installing i3 config..."
-    		cp $INSTALL_PATH/i3/config $USER_PATH/.config/i3/config
-	    fi
+	if [ ! -d $USER_PATH/.config/i3/ ]; then
+		mkdir $USER_PATH/.config/i3
+	fi
+	if [ -f "$USER_PATH/.config/i3/config" ]; then
+		diff "$USER_PATH/.config/i3/config" "$INSTALL_PATH/i3/config" >/dev/null 2>&1
+		retval=$?
+		if [ $retval -eq 0 ]; then
+			echo "i3 config already installed!"
+		else
+			echo "Backing up old i3 config..."
+			mv $USER_PATH/.config/i3/config $USER_PATH/.config/i3/config.bak
+			echo "Installing i3 config..."
+			cp $INSTALL_PATH/i3/config $USER_PATH/.config/i3/config
+		fi
 	fi
 fi
 
