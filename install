@@ -43,6 +43,9 @@ ask() {
 # i3
 
 if ask "Install i3 configuration?" Y; then
+	if [ ! -d "$USER_PATH/.config/" ]; then
+		mkdir "$USER_PATH/.config/"
+	fi
 	if [ ! -d "$USER_PATH/.config/i3/" ]; then
 		mkdir "$USER_PATH/.config/i3/"
 	fi
@@ -66,6 +69,9 @@ fi
 # i3status
 
 if ask "Install i3status configuration?" Y; then
+	if [ ! -d "$USER_PATH/.config/" ]; then
+		mkdir "$USER_PATH/.config/"
+	fi
 	if [ ! -d "$USER_PATH/.config/i3status/" ]; then
 		mkdir "$USER_PATH/.config/i3status/"
 	fi
@@ -89,6 +95,9 @@ fi
 # compton
 
 if ask "Install compton configuration?" Y; then
+	if [ ! -d "$USER_PATH/.config/" ]; then
+		mkdir "$USER_PATH/.config/"
+	fi
 	if [ -f "$USER_PATH/.config/compton.conf" ]; then
 		diff "$USER_PATH/.config/compton.conf" "$INSTALL_PATH/compton/compton.conf" >/dev/null 2>&1
 		retval=$?
@@ -192,6 +201,9 @@ fi
 # redshift
 
 if ask "Install redshift configuration?" Y; then
+	if [ ! -d "$USER_PATH/.config/" ]; then
+		mkdir "$USER_PATH/.config/"
+	fi
 	if [ -f "$USER_PATH/.config/redshift.conf" ]; then
 		diff "$USER_PATH/.config/redshift.conf" "$INSTALL_PATH/redshift/redshift.conf" >/dev/null 2>&1
 		retval=$?
@@ -212,6 +224,9 @@ fi
 # qt 
 
 if ask "Install qt configuration?" Y; then
+	if [ ! -d "$USER_PATH/.config/" ]; then
+		mkdir "$USER_PATH/.config/"
+	fi
 	if [ -f "$USER_PATH/.config/Trolltech.conf" ]; then
 		diff "$USER_PATH/.config/Trolltech.conf" "$INSTALL_PATH/qt/Trolltech.conf" >/dev/null 2>&1
 		retval=$?
