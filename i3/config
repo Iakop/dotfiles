@@ -219,7 +219,7 @@ bindsym $mod+c exec clipmenu
 
 # Start i3bar:
 bar {
-	i3bar_command 		i3bar -t
+	i3bar_command 		i3bar
 	status_command 		i3status
 	position		top
 	workspace_buttons	yes
@@ -238,7 +238,7 @@ bar {
 exec_always --no-startup-id wal -R
 exec --no-startup-id /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
 exec --no-startup-id clipmenud
-exec --no-startup-id compton --config ${HOME}/.config/compton.conf --blur-method kawase --blur-strength 9 -b
+exec --no-startup-id compton --config ${HOME}/.config/compton.conf -b
 exec --no-startup-id redshift-gtk
 exec --no-startup-id cbatticon --low-level 10 --critical-level 5
 exec --no-startup-id pasystray
