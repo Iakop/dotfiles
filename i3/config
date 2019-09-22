@@ -22,13 +22,11 @@ set $mod Mod4
 
 # i3 and i3bar use Inconsolata Bold size 10:
 font pango:SF-Pro-Display Light 11
-#font pango:Gohu GohuFont Regular 9
 
 # Fallback font:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 
 # Enable gaps and set them:
-gaps outer 16
 gaps inner 16
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -42,6 +40,9 @@ for_window [class="^.*"] border pixel 2
 
 # Start terminal:
 bindsym $mod+Return exec i3-sensible-terminal
+
+# Start terminal:
+bindsym $mod+n exec urxvt-notes
 
 # Kill focused window:
 bindsym $mod+Shift+q kill
@@ -131,9 +132,11 @@ set $ws10 "10: "
 for_window [class="Spotify"] move to workspace $ws10 
 
 for_window [class="Arandr"] floating enable 
+for_window [class="Thunar"] floating enable 
 for_window [class="Lxappearance"] floating enable 
 for_window [class="Pavucontrol"] floating enable
-for_window [class="VirtualBox Manager"] floating enable
+for_window [class="Nm-connection-editor"] floating enable
+for_window [class="Tor Browser"] floating enable
 
 # Switch to workspace:
 bindsym $mod+1 workspace $ws1
@@ -201,8 +204,7 @@ bindsym $mod+KP_Home exec xbacklight -dec 1
 # Lock the screen by pressing mod+shift+x:
 bindsym $mod+shift+x exec i3lock-fancy -- maim
 
-# Execute Ranger by pressing mod+b:
-#bindsym $mod+b exec urxvt -e ranger 
+# Execute filebrowser by pressing mod+b:
 bindsym $mod+b exec thunar 
 
 # Move workspaces left and right using mod+m+arrow keys:
