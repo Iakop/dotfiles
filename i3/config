@@ -190,16 +190,22 @@ bindsym $mod+r mode "resize"
 
 # Control the audio:
 bindsym $mod+KP_Insert exec pamixer -t
-bindsym $mod+KP_Subtract exec pamixer -d 5
-bindsym $mod+KP_Add exec pamixer -i 5
+bindsym $mod+KP_Subtract exec pamixer -d 5 --allow-boost
+bindsym $mod+KP_Add exec pamixer -i 5 --allow-boost
 bindsym $mod+KP_Down exec playerctl stop
 bindsym $mod+KP_Left exec playerctl previous
 bindsym $mod+KP_Begin exec playerctl play-pause
 bindsym $mod+KP_Right exec playerctl next
+# Other symbolics:
+bindsym XF86AudioMute exec pamixer -t
+bindsym XF86AudioLowerVolume exec pamixer -d 5 --allow-boost
+bindsym XF86AudioRaiseVolume exec pamixer -i 5 --allow-boost
 
 # Control the backlight:
-bindsym $mod+KP_Prior exec xbacklight -inc 1
-bindsym $mod+KP_Home exec xbacklight -dec 1
+bindsym $mod+KP_Prior exec xbacklight -set 100
+bindsym $mod+KP_Home exec xbacklight -set 1
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 
 # Lock the screen by pressing mod+shift+x:
 bindsym $mod+shift+x exec i3lock-fancy -- maim
