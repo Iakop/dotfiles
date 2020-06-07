@@ -115,6 +115,29 @@ if ask "Install compton configuration?" Y; then
 	fi
 fi
 
+# compiz
+
+if ask "Install compiz configuration?" Y; then
+	if [ ! -d "$USER_PATH/.config/compiz-1/compizconfig" ]; then
+		mkdir -p "$USER_PATH/.config/compiz-1/compizconfig"
+	fi
+	if [ -f "$USER_PATH/.config/compiz-1/compizconfig/Default.ini" ]; then
+		diff "$USER_PATH/.config/compiz-1/compizconfig/Default.ini" "$INSTALL_PATH/compiz/Default.ini" >/dev/null 2>&1
+		retval=$?
+		if [ $retval -eq 0 ]; then
+			echo "compton compiz already installed!"
+		else
+			echo "Backing up old compiz config..."
+			mv "$USER_PATH/.config/compiz-1/compizconfig/Default.ini" "$USER_PATH/.config/compiz-1/compizconfig/Default.ini.bak"
+			echo "Installing compiz config..."
+			cp "$INSTALL_PATH/compiz/Default.ini" "$USER_PATH/.config/compiz-1/compizconfig/Default.ini"
+		fi
+	else
+		echo "Installing compiz config..."
+		cp "$INSTALL_PATH/compiz/Default.ini" "$USER_PATH/.config/compiz-1/compizconfig/Default.ini"
+	fi
+fi
+
 # xorg Xresources
 
 if ask "Install Xresources configuration?" Y; then
